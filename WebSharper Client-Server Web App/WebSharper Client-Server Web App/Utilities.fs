@@ -3,4 +3,4 @@
 open FSharp.Data
 
 module Json = 
-    type Sample = JsonProvider<""" {"CurrencyId@": 1, "CurrencyCode@": "AUD", "Value@": 0.98542} """>
+    type Sample = JsonProvider<""" {"currencyId": 1, "currencyCode": "AUD", "value": 0.98542} """>
