@@ -54,17 +54,9 @@ type Global() =
         routes.MapRoute("Default", "{controller}/{action}/{id}", 
             { controller = "Home"; action = "Index"; id = UrlParameter.Optional } ) |> ignore
 
-    static member RegisterRoutes1(routes1:RouteCollection) =
-        routes1.IgnoreRoute( "{resource}.axd/{*pathInfo}" )
-        routes1.MapHttpRoute( "DefaultApi1", "api/{controller}/{id}", 
-            { id = RouteParameter.Optional } ) |> ignore
-        routes1.MapRoute("Default1", "{controller}/{action}/{id}", 
-            { controller = "Home"; action = "Index"; id = UrlParameter.Optional } ) |> ignore
-
     member this.Start() =
         AreaRegistration.RegisterAllAreas()
         Global.RegisterRoutes RouteTable.Routes
-        Global.RegisterRoutes1 RouteTable.Routes
         Global.RegisterGlobalFilters GlobalFilters.Filters
         BundleConfig.RegisterBundles BundleTable.Bundles
 
