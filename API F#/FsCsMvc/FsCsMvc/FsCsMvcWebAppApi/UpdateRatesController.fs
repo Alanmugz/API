@@ -14,17 +14,17 @@ type UpdateRatesController() =
     inherit ApiController()
 
     //Post /api/updaterates/AUD
-    member x.Post (id: string)([<FromBody>] rate: DataModel) =
+    member x.Post (currencyCode: string)([<FromBody>] rate: DataModel) =
 
         let conn = DatabaseUtilities.openConnection
         conn.Open() 
 
         try
-            let rowsEffected = Database.executeNonQuery <| conn <| DatabaseUtilities.updateRateQuery (id, rate.Value)
+            let rowsEffected = Database.executeNonQuery <| conn <| DatabaseUtilities.updateRateQuery (currencyCode, rate.Value)
 
             let validUpdate value = 
                match value with
-                    | 1 -> { CurrencyId = 0; CurrencyCode = id; Value = rate.Value} 
+                    | 1 -> { CurrencyId = 0; CurrencyCode = currencyCode; Value = rate.Value} 
                     | _ -> { CurrencyId = 0; CurrencyCode = "---"; Value = 0.0M}
 
             validUpdate rowsEffected
